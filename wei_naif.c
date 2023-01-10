@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h>	
 #include <stdlib.h>
 #include <gmp.h>
 
@@ -10,11 +10,13 @@
 
 
 
-void add(mpz_t x0, mpz_t y0, mpz_t x1, mpz_t y1,mpz_t p, mpz_t x2, mpz_t y2){
+void add(mpz_t x0, mpz_t y0, mpz_t x1, mpz_t y1,mpz_t p){ // on stock le resultat dans x1,y1
 	
-mpz_t l, lbis;
+mpz_t l, lbis,x2,y2;
 mpz_init(lbis);
 mpz_init(l);
+mpz_init(x2);
+mpz_init(y2);
 
 mpz_sub(l,x0,x1);
 mpz_invert(l,l,p);
@@ -32,6 +34,11 @@ mpz_mul(y2,l,y2);
 mpz_sub(y2,y2,y0);
 mpz_mod(y2,y2,p);
 
+mpz_set(x1,x2);
+mpz_set(y1,y2);
+
+mpz_clear(x2);
+mpz_clear(y2);
 mpz_clear(l);
 mpz_clear(lbis);
 
@@ -39,11 +46,13 @@ mpz_clear(lbis);
 
 
 
-void doubl(mpz_t x0, mpz_t y0,mpz_t p, mpz_t x2, mpz_t y2, mpz_t A){
+void doubl(mpz_t x0, mpz_t y0,mpz_t p, mpz_t A){
 
-mpz_t l, lbis;
+mpz_t l, lbis,x2,y2;
 mpz_init(l);
 mpz_init(lbis);
+mpz_init(x2);
+mpz_init(y2);
 
 mpz_mul_si(lbis,y0,2);
 mpz_invert(lbis,lbis,p);
@@ -67,21 +76,26 @@ mpz_mul(y2,l,y2);
 mpz_sub(y2,y2,y0);
 mpz_mod(y2,y2,p);
 
+mpz_set(x0,x2);
+mpz_set(y0,y2);
+
+mpz_clear(x2);
+mpz_clear(y2);
 mpz_clear(lbis);
 mpz_clear(l);
 }
 
+void DnA(mpz_t x0, mpz_t y0,mpz_t p, mpz_t A, mpz_t n){
 
+
+}
 
 
 
 void main(){
 
-//mpz_t (p,q,A,B,x0,y0,n);
-//mpz_inits(p,q,A,B,x0,y0,n);
 
 //mpz_set_str(p,"F1FD178C0B3AD58F10126DE8CE42435B3961ADBCABC8CA6DE8FCF353D86E9C03",16);
-//mpz_set_str(q,"F1FD178C0B3AD58F10126DE8CE42435B53DC67E140D2BF941FFDD459C6D655E1",16);
 //mpz_set_str(A,"F1FD178C0B3AD58F10126DE8CE42435B3961ADBCABC8CA6DE8FCF353D86E9C00",16);
 //mpz_set_str(B,"EE353FCA5428A9300D4ABA754A44C00FDFEC0C9AE4B1A1803075ED967B7BB73F",16);
 //mpz_set_str(x0,"B6B3D4C356C139EB31183D4749D423958C27D2DCAF98B70164C97A2DD98F5CFF",16);
